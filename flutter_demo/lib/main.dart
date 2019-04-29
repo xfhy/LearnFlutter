@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,21 +30,49 @@ class MyApp extends StatelessWidget {
         ),
         //Flutter里面所有的东西都是widget,为了把按钮放中间,需要一个Center(是一个widget)
         body: Center(
-          child: RaisedButton(
-            //点击的时候
-            onPressed: _onPressed,
-            child: Text('roll'),
-          ),
+          child: RollingButton(),
         ),
       ),
     );
   }
 }
 
-var a = 0;
+//要实现一个 stateful 的 widget，可以继承 StatefulWidget 并在 createState 方法中返回一个 State。
+class RollingButton extends StatefulWidget {
+  @override
+  State createState() {
+    return _RollingState();
+  }
+}
 
-void _onPressed() {
-  a++;
-  print('卧槽$a');
-  debugPrint('_onPressed()');
+class _RollingState extends State<RollingButton> {
+  final _random = Random();
+
+  ///搞2个随机数
+  List<int> _roll() {
+    final roll1 = _random.nextInt(600) + 1;
+    final roll2 = _random.nextInt(600) + 1;
+    return [roll1, roll2];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text('Roll'),
+      onPressed: _onPressed,
+    );
+  }
+
+  void _onPressed() {
+    debugPrint('_RollingState._onPressed');
+
+    final rollResults = _roll();
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: Text('随机数1是${rollResults[0]}\n随机数2是${rollResults[1]}'),
+          );
+        });
+  }
 }
