@@ -33,6 +33,9 @@ class RandomWordsState extends State<RandomWords> {
       //状态栏
       appBar: new AppBar(
         title: new Text('Startup Name Generator'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
       ),
       //body
       body: _buildSuggestions(),
@@ -93,6 +96,37 @@ class RandomWordsState extends State<RandomWords> {
         });
       },
     );
+  }
+
+  //跳转收藏列表界面
+  void _pushSaved() {
+    //当用户点击APP顶栏上的列表图标时，创建一个 route ，并将它添加到导航栈中，这个动作会使APP显示一个新界面。
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      //利用_saved已经保存的数据生成ListView的每一行,
+      final tiles = _saved.map((pair) {
+        return new ListTile(
+          title: new Text(
+            pair.asPascalCase,
+            style: _biggerFont,
+          ),
+        );
+      });
+
+      //所有行 Widget
+      final divided = ListTile.divideTiles(
+        context: context,
+        tiles: tiles,
+      ).toList();
+
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Saved Suggestions'),
+        ),
+        body: new ListView(
+          children: divided,
+        ),
+      );
+    }));
   }
 }
 
