@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
 class RandomWordsState extends State<RandomWords> {
   //类属性的命名 注意
   final _suggestions = <WordPair>[];
+
+  ///这个集合保存了用户喜欢的单词对，这里，Set 要优于 List，因为Set不允许出现重复元素
+  final _saved = new Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
@@ -46,7 +49,7 @@ class RandomWordsState extends State<RandomWords> {
         }
 
         // 这里是计算当前是第多少个,因为上面奇数行是规定的是分割线
-        final index = i ~/ 2;   //  ~/是一个运算符,用于整除
+        final index = i ~/ 2; //  ~/是一个运算符,用于整除
 
         //如果到达了单词对列表的结尾处...
         if (index >= _suggestions.length) {
@@ -61,11 +64,34 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    //是否已经加入了收藏夹
+    final alreadySaved = _saved.contains(pair);
+
     return new ListTile(
       title: new Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      //尾部
+      trailing: new Icon(
+        //Icons 中有很多图标
+        //已收藏 未收藏 颜色不同  可以直接控制颜色
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+
+      //item的单击事件
+      onTap: () {
+        //图标被点击后,会调用setState()回调函数来通知框架状态已经改变了
+        //注:在Flutter的响应式框架中，调用setState() 会触发对 State 对象的 build() 方法的调用，从而导致UI的更新。
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
 }
