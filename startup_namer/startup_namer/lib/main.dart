@@ -7,15 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Welcome to Flutter',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Welcome to Flutter'),
-        ),
-        body: new Center(
-          child: new RandomWords(),
-        ),
-      ),
+      title: 'Startup Name Generator',
+      home: new RandomWords(),
     );
   }
 }
@@ -30,8 +23,17 @@ class RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    final wordPaid = new WordPair.random();
-    return new Text(wordPaid.asPascalCase);
+    //final wordPaid = new WordPair.random();
+    //return new Text(wordPaid.asPascalCase);
+
+    return new Scaffold(
+      //状态栏
+      appBar: new AppBar(
+        title: new Text('Startup Name Generator'),
+      ),
+      //body
+      body: _buildSuggestions(),
+    );
   }
 
   Widget _buildSuggestions() {
@@ -43,14 +45,12 @@ class RandomWordsState extends State<RandomWords> {
           return new Divider();
         }
 
-        // 这个"i ~/ 2"的表达式将i 除以 2，然后会返回一个整数结果。
-        // 例： 1, 2, 3, 4, 5 会变成 0, 1, 1, 2, 2。
-        // 这个表达式会计算 ListView 中单词对的真实数量
-        final index = i ~/ 2;
+        // 这里是计算当前是第多少个,因为上面奇数行是规定的是分割线
+        final index = i ~/ 2;   //  ~/是一个运算符,用于整除
 
         //如果到达了单词对列表的结尾处...
-        if (index > _suggestions.length) {
-          // ...然后生成10个单词对到建议的名称列表中。
+        if (index >= _suggestions.length) {
+          // ...然后生成10个单词对到建议的名称列表中。  generateWordPairs()是三方库中的
           _suggestions.addAll(generateWordPairs().take(10));
         }
 
