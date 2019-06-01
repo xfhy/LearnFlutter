@@ -22,8 +22,12 @@ class FlatButtonWidget extends StatelessWidget {
     );
     var raisedButton = RaisedButton(
       onPressed: () => print('RaisedButton pressed${DateTime.now().toString()}'),
+      child: Text(
+        'Button',
+        style: TextStyle(color: Colors.amber),
+      ),
     );
 
-    return flatBtn;
+    return raisedButton;
   }
 }

@@ -30,9 +30,11 @@ class _BarWidgetState extends State<BarWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      //一行
       children: <Widget>[
-        Text('i = $i'),
+        Text('i = $i'), //文本
         RaisedButton(
+          //button
           onPressed: () {
             setState(() {
               ++i;
@@ -40,6 +42,7 @@ class _BarWidgetState extends State<BarWidget> {
           },
           child: Text('click'),
         ),
+        Text('i=$i'),
         Text('i=$i')
       ],
     );
