@@ -21,11 +21,20 @@ class _GridDemoPageState extends State<GridDemoPage> {
 
   Widget buildGrid() {
     //extent指定子项占据的最大宽度
-    return new GridView.extent(
+    /*return new GridView.extent(
       maxCrossAxisExtent: 150,
       padding: EdgeInsets.all(4),
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,
+      children: _buildGridTileList(30),
+    );*/
+
+    return new GridView.count(
+      crossAxisCount: 2,   //列数
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      padding: const EdgeInsets.all(4),
+      childAspectRatio: 1.3,  //纵横比
       children: _buildGridTileList(30),
     );
   }
