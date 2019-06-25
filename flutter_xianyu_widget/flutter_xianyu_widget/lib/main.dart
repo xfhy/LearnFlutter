@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_xianyu_widget/container_page.dart';
+import 'package:flutter_xianyu_widget/gridview_page.dart';
 import 'package:flutter_xianyu_widget/stack.dart';
 
 void main() => runApp(MyApp());
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StackWidget(),
+      home: GridDemoPage(),
     );
   }
 }
