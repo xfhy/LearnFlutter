@@ -61,3 +61,61 @@ class StackWidget extends StatelessWidget {
     );
   }
 }
+
+class StackPage1 extends StatefulWidget {
+  @override
+  State createState() => _StackPage1State();
+}
+
+class _StackPage1State extends State<StackPage1> {
+  @override
+  Widget build(BuildContext context) {
+    var stack = new Stack(
+      alignment: const Alignment(0.6, 0.6),
+      children: <Widget>[
+        //1. 首先在最底层的是 圆形头像  背景是一张图片.半径是100
+        new CircleAvatar(
+          backgroundImage: new AssetImage('images/image2.PNG'),
+          radius: 100,
+        ),
+
+        //2. 其次是文字,有着半透明的背景
+        new Container(
+          //半透明背景
+          decoration: new BoxDecoration(
+            color: Colors.black45,
+          ),
+          //一段文字
+          child: new Text(
+            'Android Avatar',
+            style: new TextStyle(color: Colors.white70),
+          ),
+        ),
+
+        //3.
+        new Container(
+          //背景是透明的   不要这句话,效果也是一样的
+          decoration: new BoxDecoration(color: Colors.transparent),
+          //离右边100
+          margin: const EdgeInsets.fromLTRB(0, 0, 100, 0),
+          //圆形图片
+          child: new CircleAvatar(
+            backgroundImage: new AssetImage('images/image3.PNG'),
+            //背景是透明的   不要这句话,效果也是一样的
+            //backgroundColor: Colors.transparent,
+            //半径10
+            radius: 10,
+          ),
+        ),
+      ],
+    );
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Stack demo1'),
+      ),
+      body: new Center(
+        child: stack,
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_xianyu_widget/card.dart';
 import 'package:flutter_xianyu_widget/container_page.dart';
 import 'package:flutter_xianyu_widget/gridview_page.dart';
 import 'package:flutter_xianyu_widget/stack.dart';
@@ -14,7 +15,55 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GridDemoPage(),
+      home: HomePage(),
+      routes: {
+        CONTAINER_DEMO_PAGE: (BuildContext context) => new ContainerDemoPage(),
+        '/b': (BuildContext context) => new GridDemoPage(),
+        '/c': (BuildContext context) => new ListView2Page(),
+        '/d': (BuildContext context) => new StackPage1(),
+        '/e': (BuildContext context) => new ContainerDemoPage(),
+      },
+    );
+  }
+}
+
+const String CONTAINER_DEMO_PAGE = '/a';
+
+class HomePage extends StatefulWidget {
+  @override
+  State createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('home'),
+      ),
+      body: new Column(
+        children: <Widget>[
+          getGestureDetector(CONTAINER_DEMO_PAGE, 'Container Demo'),
+          getGestureDetector('/b', 'Grid Demo 1'),
+          getGestureDetector('/c', 'ListView Demo'),
+          getGestureDetector('/d', 'Stack Demo'),
+          getGestureDetector('/e', 'Button Page'),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector getGestureDetector(String routeName, String content) {
+    return new GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(routeName);
+      },
+      child: new Container(
+        padding: EdgeInsets.all(20),
+        child: new Center(
+          child: new Text(content),
+        ),
+      ),
     );
   }
 }
