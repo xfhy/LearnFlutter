@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_xianyu_widget/card.dart';
 import 'package:flutter_xianyu_widget/container_page.dart';
 import 'package:flutter_xianyu_widget/gridview_page.dart';
+import 'package:flutter_xianyu_widget/listview.dart';
 import 'package:flutter_xianyu_widget/stack.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/b': (BuildContext context) => new GridDemoPage(),
         '/c': (BuildContext context) => new ListView2Page(),
         '/d': (BuildContext context) => new StackPage1(),
-        '/e': (BuildContext context) => new ContainerDemoPage(),
+        '/e': (BuildContext context) => new ListViewPage(),
       },
     );
   }
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           getGestureDetector('/b', 'Grid Demo 1'),
           getGestureDetector('/c', 'ListView Demo'),
           getGestureDetector('/d', 'Stack Demo'),
-          getGestureDetector('/e', 'Button Page'),
+          getGestureDetector('/e', 'ListView Page'),
         ],
       ),
     );
